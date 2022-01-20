@@ -1,2 +1,2 @@
-# bosch-kf163-pll
-Replacement PLL PCB for Bosch KF83/KF163/KF453 radios
+# bosch-kf163-control
+Replacement PLL/TGA PCB to control Bosch KF83/KF163/KF453/KF165 radios

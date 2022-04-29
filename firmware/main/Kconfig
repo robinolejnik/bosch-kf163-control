@@ -1,0 +1,10 @@
+menu "Radio setup"
+    choice PLL_TYPE
+        prompt "Type of PLL"
+        default PLL_TYPE_DIODE
+        config PLL_TYPE_DIODE
+            bool "Diode"
+        config PLL_TYPE_DIGX
+            bool "DigX"
+    endchoice
+endmenu

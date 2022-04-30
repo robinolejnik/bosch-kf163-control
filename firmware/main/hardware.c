@@ -14,4 +14,5 @@ void gpio_init(void) {
     gpio_set_direction(GPIO_DIGX_D2, GPIO_MODE_OUTPUT);
     gpio_set_direction(GPIO_DIGX_D3, GPIO_MODE_OUTPUT);
     gpio_set_direction(GPIO_DIGX_DIV, GPIO_MODE_OUTPUT);
+    gpio_set_direction(GPIO_SR_LATCH, GPIO_MODE_OUTPUT);
 }

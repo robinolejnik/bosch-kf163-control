@@ -3,6 +3,8 @@
 
 #include "driver/gpio.h"
 
+void gpio_init(void);
+
 #define GPIO_PTT_SENSE  GPIO_NUM_35
 #define GPIO_PTT_OUT    GPIO_NUM_27
 #define GPIO_SQL_SENSE  GPIO_NUM_13
@@ -27,5 +29,4 @@
 #define GPIO_DIGX_D2    GPIO_NUM_17
 #define GPIO_DIGX_D3    GPIO_NUM_5
 
-// _HARDWARE_H_
-#endif
+#endif // _HARDWARE_H_

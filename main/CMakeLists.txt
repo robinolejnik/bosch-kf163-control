@@ -1,1 +1,1 @@
-idf_component_register(SRCS "hardware.c" "main.c" INCLUDE_DIRS ".")
+idf_component_register(SRCS "shiftregister.c" "pll.c" "hardware.c" "main.c" INCLUDE_DIRS ".")

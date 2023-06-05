@@ -19,6 +19,8 @@ static uint16_t tx_pll = 0;
 static uint8_t trx_state = STATE_RX;
 static uint8_t sql_state = STATE_SQL_CLOSE;
 
+static uint16_t sr_in_state = 0;
+
 void setrxfreq(uint32_t freq) {
 	if(freq>100000000) {
 		rx_pll = freq2pll(freq - 21400000);
@@ -76,6 +78,19 @@ void app_main(void) {
 			printf("SQL close\n");
 		}
 
+		uint16_t sr_in_state_temp = ~sr_in();
+		if(sr_in_state != sr_in_state_temp) {
+			sr_in_state = sr_in_state_temp;
+			printf("SR in 0x%04X\n", sr_in_state);
+		}
+
+		if(sr_in_state_temp & 0x0100) { // CALL1 button
+			gpio_set_level(GPIO_PTT_OUT, 1);
+		}
+		else {
+			gpio_set_level(GPIO_PTT_OUT, 0);
+		}
+		
 		vTaskDelay(100 / portTICK_PERIOD_MS);
 	}
 }

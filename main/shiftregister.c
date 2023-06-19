@@ -41,15 +41,15 @@ static bool timer_isr(gptimer_handle_t timer, const gptimer_alarm_event_data_t *
     return false;
 }
 
-void sr_out(uint16_t value) {
+void shiftregister_out(uint16_t value) {
     out = value;
 }
 
-uint16_t sr_in(void) {
+uint16_t shiftregister_in(void) {
     return in_latched;
 }
 
-void sr_init() {
+void shiftregister_init() {
     gpio_set_direction(GPIO_SR_CLK, GPIO_MODE_OUTPUT);
     gpio_set_direction(GPIO_SR_LATCH, GPIO_MODE_OUTPUT);
     gpio_set_direction(GPIO_SR_OUT, GPIO_MODE_OUTPUT);

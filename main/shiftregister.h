@@ -6,8 +6,8 @@
 #define DIRECTION_READ  1
 #define DIRECTION_WRITE 0
 
-extern void sr_init(void);
-extern void sr_out(uint16_t value);
-extern uint16_t sr_in(void);
+extern void shiftregister_init(void);
+extern void shiftregister_out(uint16_t value);
+extern uint16_t shiftregister_in(void);
 
 #endif // _SHIFTREGISTER_H_

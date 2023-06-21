@@ -14,10 +14,10 @@ static bool timer_isr(gptimer_handle_t timer, const gptimer_alarm_event_data_t *
     if(bit_counter%2==0) { // falling clock edge
         gpio_set_level(GPIO_SR_CLK, 0);
         gpio_set_level(GPIO_SR_LATCH, serial_direction);
-        if(serial_direction == DIRECTION_WRITE) {
+        if(serial_direction == DIRECTION_WRITE) { // write output data
             gpio_set_level(GPIO_SR_OUT, ((out >> ((bit_counter-2)/2)) & 0x0001));
         }
-        else {
+        else { // read input data
             gpio_set_level(GPIO_SR_OUT, 0);
             in |= (gpio_get_level(GPIO_SR_IN) << ((bit_counter-2)/2));
         }
@@ -28,14 +28,14 @@ static bool timer_isr(gptimer_handle_t timer, const gptimer_alarm_event_data_t *
 
     bit_counter--;
 
-    if(bit_counter==0) { // swap direction and reset counter
-        bit_counter = 32;
+    if(bit_counter==0) {
+        bit_counter = 32; // reset counter
         if(serial_direction==DIRECTION_READ) {
             // process input
             in_latched = in;
             in = 0;
         }
-        serial_direction = !serial_direction;
+        serial_direction = !serial_direction; // swap direction
     }
 
     return false;

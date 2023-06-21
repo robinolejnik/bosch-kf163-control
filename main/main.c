@@ -13,12 +13,6 @@
 #define STATE_SQL_CLOSE 0
 #define STATE_SQL_OPEN  1
 
-static uint16_t rx_pll = 0;
-static uint16_t tx_pll = 0;
-
-static uint8_t trx_state = STATE_RX;
-static uint8_t sql_state = STATE_SQL_CLOSE;
-
 static uint32_t frequencies[] = {
 	149025000,
 	149037500,
@@ -28,11 +22,18 @@ static uint32_t frequencies[] = {
 	149112500
 };
 
-static uint8_t channel = 0;
-
 void app_main(void) {
+	uint8_t channel = 0;
+	uint16_t rx_pll = 0;
+	uint16_t tx_pll = 0;
 	uint8_t button_state = 0;
-    gpio_init();
+	uint8_t trx_state = STATE_RX;
+	uint8_t sql_state = STATE_SQL_CLOSE;
+
+    gpio_set_direction(GPIO_PTT_SENSE, GPIO_MODE_INPUT);
+    gpio_set_direction(GPIO_SQL_SENSE, GPIO_MODE_INPUT);
+    gpio_set_direction(GPIO_MUTE, GPIO_MODE_OUTPUT);
+    gpio_set_direction(GPIO_LED, GPIO_MODE_OUTPUT);
 	shiftregister_init();
 
 	rx_pll = freq2pll(frequencies[channel] + 21400000);
@@ -59,7 +60,7 @@ void app_main(void) {
 		}
 
 		uint16_t shiftregister_in_state = ~shiftregister_in();
-
+		// check if button is pressed (read from shift register)
 		if(shiftregister_in_state & 0x0100 && button_state == 0 && gpio_get_level(GPIO_PTT_SENSE)) {
 			button_state = 1;
 			channel++;
